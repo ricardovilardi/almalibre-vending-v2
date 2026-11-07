@@ -1,0 +1,25 @@
+# source            w     h    output-file                              mode (jpg | png = no alpha | pnga = alpha)
+welcome_vanille     1080  1920 onctuo_label_welcome_vanille_en.jpg      jpg
+welcome_vanille     1080  1920 onctuo_label_welcome_vanille_fr.jpg      jpg
+welcome_mangues     1080  1920 onctuo_label_welcome_mangues_en.jpg      jpg
+welcome_mangues     1080  1920 onctuo_label_welcome_mangues_fr.jpg      jpg
+book                1080  1920 onctuo_label_book_en.jpg                 jpg
+book                1080  1920 onctuo_label_book_fr.png                 pnga
+order               1080  1920 onctuo_label_order_en.jpg                jpg
+order               1080  1920 onctuo_label_order_fr.jpg                jpg
+payment             1080  1920 onctuo_label_payment_en.jpg              jpg
+payment             1080  1920 onctuo_label_payment_fr.jpg              jpg
+outing              1080  1920 onctuo_label_outing_en.jpg               jpg
+outing              1080  1920 onctuo_label_outing_fr.png               png
+sold_out            1080  1920 onctuo_label_sold_out_en.png             png
+sold_out            1080  1920 onctuo_label_sold_out_fr.png             pnga
+label_topping_en    548   60   onctuo_label_book_topping_en.png         pnga
+label_topping_fr    594   60   onctuo_label_book_topping_fr.png         pnga
+label_sauce_en      211   45   onctuo_label_book_sauce_en.png           pnga
+label_sauce_fr      608   60   onctuo_label_book_sauce_fr.png           pnga
+selected_mark       256   256  onctuo_bg_diy_selected_mark.png          pnga
+common_mark         308   344  onctuo_label_common_mark.png             pnga
+process_1           485   74   onctuo_outing_process_1.png              pnga
+process_2           485   74   onctuo_outing_process_2.png              pnga
+process_3           485   74   onctuo_outing_process_3.png              pnga
+process_4           485   74   onctuo_outing_process_4.png              pnga
