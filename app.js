@@ -5,7 +5,7 @@ const PRICE_BASE = 4.5;   // bowl base (placeholder)
 const PRICE_EXTRA = 1.0;  // each topping (placeholder)
 const IDLE_MS = 45000;
 
-// 6 toppings on screen: 3 solids + 3 sauces. The 3rd sauce is a per-machine slot.
+// 6 toppings on screen: 3 solids + 3 liquids. The 3rd liquid is a per-machine slot.
 const TOPPINGS = {
   granola:  { type: 'solid',  name: 'Granola crunchy', img: 'assets/t-granola.png' },
   oreo:     { type: 'solid',  name: 'Oreo', img: 'assets/t-oreo.png' },
@@ -17,19 +17,22 @@ const TOPPINGS = {
 };
 const SLOT_OPTIONS = ['pistacho', 'crema'];
 
+// Placeholder content for the product image/video slot on the Personaliza screen
 const SLIDES = [
   { bg: 'assets/attract-poster.jpg', h: 'Açaí desde el corazón de la Amazonia', p: '100 % natural' },
   { img: 'assets/cup.png', h: 'Tu bowl de açaí en segundos', p: 'Fresco, cremoso y a tu manera' },
-  { img: 'assets/t-frutos.png', h: 'Tú eliges tus toppings', p: 'Uno de cada, los que quieras' },
+  { img: 'assets/t-frutos.png', h: 'Tú eliges tus toppings', p: 'Todos los que quieras' },
 ];
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const eur = n => n.toFixed(2).replace('.', ',') + ' €';
 
-const state = { slot: 'pistacho', welcome: 'vanille', picked: new Set(), screen: 'attract' };
+const state = { slot: 'pistacho', welcome: 'vanille', picked: new Set(), bowls: 1, screen: 'attract' };
 const menu = () => ['granola', 'oreo', 'pacoca', 'frutos', 'choco', state.slot];
-const total = () => PRICE_BASE + state.picked.size * PRICE_EXTRA;
+const unit = () => PRICE_BASE + state.picked.size * PRICE_EXTRA;
+const total = () => unit() * state.bowls;
+const bowlsLabel = n => `${n} ${n === 1 ? 'bowl' : 'bowls'}`;
 
 /* ---------- scaling ---------- */
 function fit() {
@@ -47,11 +50,11 @@ function go(name) {
   $$('.screen').forEach(s => s.classList.toggle('active', s.dataset.screen === name));
   const v = $('#attractVideo');
   name === 'attract' ? (v.currentTime = 0, v.play().catch(() => {})) : v.pause();
-  if (name === 'attract') state.picked.clear();
+  if (name === 'attract') { state.picked.clear(); state.bowls = 1; }
   if (name === 'welcome') startCarousel(); else clearInterval(slideTimer);
   if (name === 'book') renderBook();
-  if (name === 'order') renderOrder();
-  if (name === 'payment') { $('#payLine').textContent = `1 bowl · ${eur(total())}`; $('#payDialog').hidden = true; }
+  if (name === 'order') renderQty();
+  if (name === 'payment') renderSummary();
   if (name === 'outing') startMaking();
   bumpIdle();
 }
@@ -66,7 +69,7 @@ document.addEventListener('click', e => {
 });
 $('[data-screen="attract"]').addEventListener('click', () => go('welcome'));
 
-/* ---------- welcome ---------- */
+/* ---------- Personaliza ---------- */
 function startCarousel() {
   $('#welcomeBg').src = `export/onctuo_label_welcome_${state.welcome}_en.jpg`;
   const c = $('#carousel');
@@ -77,7 +80,7 @@ function startCarousel() {
   slideTimer = setInterval(() => { sl[i].classList.remove('on'); i = (i + 1) % sl.length; sl[i].classList.add('on'); }, 3500);
 }
 
-/* ---------- book ---------- */
+/* ---------- toppings ---------- */
 function card(id) {
   const t = TOPPINGS[id], on = state.picked.has(id);
   return `<button class="card${on ? ' on' : ''}" data-id="${id}" aria-pressed="${on}">
@@ -91,7 +94,7 @@ function renderBook() {
   const m = menu();
   $('#gridSolid').innerHTML = m.filter(id => TOPPINGS[id].type === 'solid').map(card).join('');
   $('#gridLiquid').innerHTML = m.filter(id => TOPPINGS[id].type === 'liquid').map(card).join('');
-  $('#bookTotal').textContent = eur(total());
+  $('#bookTotal').textContent = eur(unit());
 }
 $('.book-scroll').addEventListener('click', e => {
   const c = e.target.closest('.card'); if (!c) return;
@@ -100,33 +103,28 @@ $('.book-scroll').addEventListener('click', e => {
   renderBook();
 });
 
-/* ---------- order ---------- */
-function renderOrder() {
-  const rows = [`<div class="row"><div class="th"><img src="assets/cup.png" alt=""></div>
-      <div class="nm">Bowl de açaí<small>Base</small></div><div class="pr">${eur(PRICE_BASE)}</div></div>`];
-  state.picked.forEach(id => {
-    const t = TOPPINGS[id];
-    rows.push(`<div class="row"><div class="th"><img src="${t.img}" alt=""></div>
-      <div class="nm">${t.name}<small>Topping</small></div><div class="pr">${eur(PRICE_EXTRA)}</div>
-      <button class="rm" data-rm="${id}" aria-label="Quitar ${t.name}">×</button></div>`);
-  });
-  if (!state.picked.size) rows.push(`<div class="empty-note">Sin toppings · puedes volver y añadir los que quieras</div>`);
-  $('#summary').innerHTML = rows.join('');
+/* ---------- bowl quantity ---------- */
+function renderQty() {
+  $('#qty').innerHTML = [1, 2, 3].map(n => `<button class="qopt${state.bowls === n ? ' on' : ''}" data-n="${n}" aria-pressed="${state.bowls === n}">
+      <img class="mark" src="export/onctuo_bg_diy_selected_mark.png" alt="">
+      <img class="cups" src="assets/bowls-${n}.png" alt="">
+      <div class="n">${bowlsLabel(n)}</div></button>`).join('');
   $('#orderTotal').textContent = eur(total());
 }
-$('#summary').addEventListener('click', e => {
-  const b = e.target.closest('[data-rm]'); if (!b) return;
-  state.picked.delete(b.dataset.rm); renderOrder();
+$('#qty').addEventListener('click', e => {
+  const b = e.target.closest('.qopt'); if (!b) return;
+  state.bowls = +b.dataset.n; renderQty();
 });
 
-/* ---------- payment ---------- */
-let failNext = false;
-$('#tapCard').addEventListener('click', () => {
-  if (failNext) { failNext = false; $('#payDialog').hidden = false; return; }
-  go('outing');
-});
-$('#dialogOk').addEventListener('click', () => { $('#payDialog').hidden = true; });
-$('#failPay').addEventListener('click', () => { failNext = true; if (state.screen !== 'payment') go('payment'); });
+/* ---------- summary (text only) ---------- */
+function renderSummary() {
+  $('#sumQty').textContent = bowlsLabel(state.bowls);
+  const lines = [`<div class="ln"><span>Bowl de açaí</span><span>${eur(PRICE_BASE)}</span></div>`];
+  state.picked.forEach(id => lines.push(`<div class="ln"><span>${TOPPINGS[id].name}</span><span>+${eur(PRICE_EXTRA)}</span></div>`));
+  if (state.bowls > 1) lines.push(`<div class="ln"><span>× ${state.bowls} bowls</span><span></span></div>`);
+  $('#sumList').innerHTML = lines.join('');
+  $('#sumTotal').textContent = eur(total());
+}
 
 /* ---------- making ---------- */
 function startMaking() {
@@ -145,16 +143,14 @@ $('#slotSelect').addEventListener('change', e => {
   state.slot = e.target.value;
   SLOT_OPTIONS.forEach(id => id !== state.slot && state.picked.delete(id));
   if (state.screen === 'book') renderBook();
-  if (state.screen === 'order') renderOrder();
+  if (state.screen === 'payment') renderSummary();
 });
-$('#welcomeSelect').addEventListener('change', e => { state.welcome = e.target.value; if (state.screen === 'welcome') startCarousel(); });
 
 // preload backgrounds
-['welcome_vanille_en.jpg', 'welcome_mangues_en.jpg', 'book_en.jpg', 'order_en.jpg', 'payment_en.jpg', 'outing_en.jpg', 'sold_out_en.png']
+['welcome_vanille_en.jpg', 'book_en.jpg', 'order_en.jpg', 'payment_en.jpg', 'outing_en.jpg', 'sold_out_en.png']
   .forEach(f => { new Image().src = 'export/onctuo_label_' + f; });
 
 fit();
-if (location.search.includes('demo')) ['granola', 'frutos', 'pistacho'].forEach(id => state.picked.add(id));
-const start = location.hash.slice(1) || 'attract';
-go(start);
-if (location.search.includes('demo')) state.picked = new Set(['granola', 'frutos', 'pistacho']), go(start);
+if (location.search.includes('demo')) { state.picked = new Set(['granola', 'frutos', 'pistacho']); state.bowls = 2; }
+go(location.hash.slice(1) || 'attract');
+if (location.search.includes('demo')) { state.picked = new Set(['granola', 'frutos', 'pistacho']); state.bowls = 2; go(location.hash.slice(1) || 'attract'); }

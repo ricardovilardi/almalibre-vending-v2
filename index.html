@@ -13,63 +13,59 @@
 <div class="stage-wrap">
   <div class="kiosk" id="kiosk">
 
-    <!-- 0 · Salvapantallas -->
+    <!-- 1 · Bienvenida: solo vídeo -->
     <section class="screen" data-screen="attract">
       <video id="attractVideo" src="assets/video/attract.mp4" poster="assets/attract-poster.jpg" muted loop playsinline autoplay></video>
-      <div class="attract-cta">TOCA AQUÍ PARA PEDIR <span class="hand">👆</span></div>
     </section>
 
-    <!-- 1 · Inicio -->
+    <!-- 2 · Personaliza (fondo welcome_*: logo + info; app: slot imagen/vídeo + botón) -->
     <section class="screen" data-screen="welcome">
       <img class="bg" id="welcomeBg" alt="">
       <div class="carousel" id="carousel"></div>
       <button class="app-btn start" data-go="book">TOCA AQUÍ PARA PEDIR</button>
     </section>
 
-    <!-- 2 · Personaliza -->
-    <section class="screen" data-screen="book">
+    <!-- 3 · Toppings (book) -->
+    <section class="screen light" data-screen="book">
       <img class="bg" src="export/onctuo_label_book_en.jpg" alt="">
       <div class="book-scroll">
-        <img class="sec-label" src="export/onctuo_label_book_topping_fr.png" alt="Toppings">
+        <img class="sec-label" src="export/onctuo_label_book_topping_en.png" alt="Sólidos">
         <div class="grid" id="gridSolid"></div>
-        <img class="sec-label" src="export/onctuo_label_book_sauce_fr.png" alt="Salsas">
+        <img class="sec-label" src="export/onctuo_label_book_sauce_fr.png" alt="Líquidos">
         <div class="grid" id="gridLiquid"></div>
       </div>
       <div class="app-bar">
-        <button class="app-btn ghost" data-go="welcome">Volver</button>
+        <button class="app-btn secondary" data-go="welcome">Volver</button>
         <div class="total" id="bookTotal"></div>
         <button class="app-btn" data-go="order">Siguiente</button>
       </div>
     </section>
 
-    <!-- 3 · Resumen -->
-    <section class="screen" data-screen="order">
+    <!-- 4 · Cantidad de bowls (order) -->
+    <section class="screen light" data-screen="order">
       <img class="bg" src="export/onctuo_label_order_en.jpg" alt="">
-      <div class="summary" id="summary"></div>
+      <div class="qty" id="qty"></div>
       <div class="app-bar">
-        <button class="app-btn ghost" data-go="book">Volver</button>
+        <button class="app-btn secondary" data-go="book">Volver</button>
         <div class="total" id="orderTotal"></div>
-        <button class="app-btn" data-go="payment">Pagar</button>
+        <button class="app-btn" data-go="payment">Siguiente</button>
       </div>
     </section>
 
-    <!-- 4 · Pago -->
-    <section class="screen" data-screen="payment">
+    <!-- 5 · Resumen (payment_*: fondo con texto; app: texto del pedido) -->
+    <section class="screen light" data-screen="payment">
       <img class="bg" src="export/onctuo_label_payment_en.jpg" alt="">
-      <div class="pay-line"><span>Tu pedido:</span><b id="payLine"></b></div>
-      <button class="tap-zone" id="tapCard" aria-label="Simular pago con tarjeta"></button>
-      <button class="app-btn ghost pay-cancel" data-go="order">Cancelar</button>
-      <div class="dialog" id="payDialog" hidden>
-        <div class="dialog-card">
-          <div class="dialog-icon">✕</div>
-          <div class="dialog-title">Pago no válido</div>
-          <div class="dialog-text">Vuelve a acercar tu tarjeta</div>
-          <button class="app-btn" id="dialogOk">Entendido</button>
-        </div>
+      <div class="sum-head"><span>Seleccionado:</span><b id="sumQty"></b></div>
+      <div class="sum-list" id="sumList"></div>
+      <div class="app-bar">
+        <button class="app-btn secondary" data-go="order">Volver</button>
+        <div class="total" id="sumTotal"></div>
+        <button class="app-btn" data-go="outing">Pagar</button>
       </div>
+      <div class="todo-note">Pago con tarjeta: pendiente de definir con el proveedor</div>
     </section>
 
-    <!-- 5 · Preparando -->
+    <!-- 6 · Preparando -->
     <section class="screen" data-screen="outing">
       <img class="bg" src="export/onctuo_label_outing_en.jpg" alt="">
       <div class="making">
@@ -77,11 +73,11 @@
         <img class="progress" id="progress" src="export/onctuo_outing_process_1.png" alt="">
       </div>
       <div class="ready" id="ready" hidden>
-        <div class="ready-card">¡Tu bowl está listo!<small>Recógelo abajo y disfruta 💜</small></div>
+        <div class="ready-card">¡Tu bowl está listo!<small>Recógelo abajo y disfruta</small></div>
       </div>
     </section>
 
-    <!-- 6 · Agotado -->
+    <!-- Agotado -->
     <section class="screen" data-screen="soldout">
       <img class="bg" src="export/onctuo_label_sold_out_en.png" alt="">
     </section>
@@ -98,13 +94,6 @@
       <option value="crema">con Crema de cacahuete</option>
     </select>
   </label>
-  <label>Inicio
-    <select id="welcomeSelect">
-      <option value="vanille">Variante A</option>
-      <option value="mangues">Variante B</option>
-    </select>
-  </label>
-  <button id="failPay">Simular pago fallido</button>
   <button data-go="soldout">Agotado</button>
   <button data-go="attract">Reiniciar</button>
 </nav>
