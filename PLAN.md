@@ -16,8 +16,8 @@ Note: the provider's "alpha" full screens are fully opaque, apart from a 1 px ed
 ## Flow
 | # | Screen | Delivered files | Our image | App draws on top |
 |---|---|---|---|---|
-| 1 | Welcome | MP4 1080x1920 (separate) | current "cheering cups" video, no overlay; tap → 2. Content-driven video later (storyboard) | – |
-| 2 | Personaliza | welcome_vanille_en/fr.jpg, welcome_mangues_en/fr.jpg (both identical, single design) | logo + info text | product image/video slot (middle), bottom button (colour + text configurable) |
+| 1 | Welcome | MP4 1080x1920 H.264, 27 s (separate) = assets/video/attract.mp4 | claymation açaí-berry intro (client file result-2a739822…mp4), no overlay; tap → 2 | – |
+| 2 | Personaliza | welcome_vanille_en/fr.jpg, welcome_mangues_en/fr.jpg (both identical, single design) | #FFFCF5, purple logo, light-beige (#F5F1E8) product slot, purple text below: "Tu bowl de açaí en segundos" + "Natural, fresco y a tu manera" | product slot: cup only, no text (assets/bowls-1.png, transparent); bottom button (colour + text configurable) |
 | 3 | Toppings | book_en.jpg, book_fr.png | #FFFCF5, purple text: "Personaliza tu açaí" (one line) + "Elige tus toppings" | Sólidos/Líquidos label images, topping cards, total, Volver/Siguiente |
 | 3a | Section titles | book_topping_en 548x60, _fr 594x60 = "Sólidos"; book_sauce_en 211x45, _fr 608x60 = "Líquidos" | #4A1F6E, transparent, fixed height | – |
 | 3b | Selected mark | bg_diy_selected_mark.png 256x256 | #FAB417 circle (172 px), #4A1F6E check | used on toppings and bowl quantity |

@@ -17,18 +17,11 @@ const TOPPINGS = {
 };
 const SLOT_OPTIONS = ['pistacho', 'crema'];
 
-// Placeholder content for the product image/video slot on the Personaliza screen
-const SLIDES = [
-  { bg: 'assets/attract-poster.jpg', h: 'Açaí desde el corazón de la Amazonia', p: '100 % natural' },
-  { img: 'assets/cup.png', h: 'Tu bowl de açaí en segundos', p: 'Fresco, cremoso y a tu manera' },
-  { img: 'assets/t-frutos.png', h: 'Tú eliges tus toppings', p: 'Todos los que quieras' },
-];
-
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const eur = n => n.toFixed(2).replace('.', ',') + ' €';
 
-const state = { slot: 'pistacho', welcome: 'vanille', picked: new Set(), bowls: 1, screen: 'attract' };
+const state = { slot: 'pistacho', picked: new Set(), bowls: 1, screen: 'attract' };
 const menu = () => ['granola', 'oreo', 'pacoca', 'frutos', 'choco', state.slot];
 const unit = () => PRICE_BASE + state.picked.size * PRICE_EXTRA;
 const total = () => unit() * state.bowls;
@@ -43,7 +36,7 @@ function fit() {
 addEventListener('resize', fit);
 
 /* ---------- navigation ---------- */
-let idleTimer, slideTimer, makeTimer;
+let idleTimer, makeTimer;
 function go(name) {
   clearTimeout(makeTimer);
   state.screen = name;
@@ -51,7 +44,6 @@ function go(name) {
   const v = $('#attractVideo');
   name === 'attract' ? (v.currentTime = 0, v.play().catch(() => {})) : v.pause();
   if (name === 'attract') { state.picked.clear(); state.bowls = 1; }
-  if (name === 'welcome') startCarousel(); else clearInterval(slideTimer);
   if (name === 'book') renderBook();
   if (name === 'order') renderQty();
   if (name === 'payment') renderSummary();
@@ -68,17 +60,6 @@ document.addEventListener('click', e => {
   if (t) go(t.dataset.go);
 });
 $('[data-screen="attract"]').addEventListener('click', () => go('welcome'));
-
-/* ---------- Personaliza ---------- */
-function startCarousel() {
-  $('#welcomeBg').src = `export/onctuo_label_welcome_${state.welcome}_en.jpg`;
-  const c = $('#carousel');
-  c.innerHTML = SLIDES.map(s => `<div class="slide" style="${s.bg ? `background-image:url(${s.bg})` : ''}">
-      ${s.img ? `<img src="${s.img}" alt="">` : ''}<h3>${s.h}</h3><p>${s.p}</p></div>`).join('');
-  let i = 0; const sl = $$('.slide', c); sl[0].classList.add('on');
-  clearInterval(slideTimer);
-  slideTimer = setInterval(() => { sl[i].classList.remove('on'); i = (i + 1) % sl.length; sl[i].classList.add('on'); }, 3500);
-}
 
 /* ---------- toppings ---------- */
 function card(id) {

@@ -37,15 +37,10 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 /* attract: video only, tap anywhere */
 #attractVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
-/* Personaliza: product slot (app zone 120..960 × 330..1230) */
-.carousel{position:absolute;left:120px;top:330px;width:840px;height:900px;border-radius:48px;overflow:hidden}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity .8s;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
-  background:var(--plum-800) center/cover no-repeat;padding:56px;text-align:center}
-.slide.on{opacity:1}
-.slide::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(28,10,43,.85))}
-.slide h3{position:relative;font-size:60px;font-weight:700;line-height:1.05}
-.slide p{position:relative;font-size:34px;opacity:.85;margin-top:12px}
-.slide img{position:absolute;left:50%;top:70px;transform:translateX(-50%);width:600px}
+/* Personaliza: product slot (app zone 120..960 × 330..1230) — cup only, light beige */
+.product-slot{position:absolute;left:120px;top:330px;width:840px;height:900px;border-radius:48px;background:#F5F1E8;
+  display:flex;align-items:center;justify-content:center}
+.product-slot img{width:760px;height:760px;object-fit:contain}
 .start{position:absolute;left:50%;top:1715px;transform:translateX(-50%);font-size:44px;padding:36px 70px;white-space:nowrap;color:#24142E}
 .start:active{transform:translateX(-50%) scale(.96)}
 
