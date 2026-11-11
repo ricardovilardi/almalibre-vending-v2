@@ -2,7 +2,7 @@
   --plum-900:#2a0f40; --plum-800:#4a1f6e;
   --main:#4A1F6E;        /* main colour (borders) */
   --btn:#FAB417;         /* primary button fill */
-  --btn-text:#FFFFFF;    /* primary button text */
+  --btn-text:#24142E;    /* primary button text (dark purple) */
   --btn2:#FFFFFF;        /* secondary button fill */
   --btn2-text:#4A1F6E;   /* secondary button text */
   --app-text:#4A1F6E;    /* app text on light screens */
@@ -41,7 +41,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .product-slot{position:absolute;left:120px;top:330px;width:840px;height:900px;border-radius:48px;background:#F5F1E8;
   display:flex;align-items:center;justify-content:center}
 .product-slot img{width:760px;height:760px;object-fit:contain}
-.start{position:absolute;left:50%;top:1715px;transform:translateX(-50%);font-size:44px;padding:36px 70px;white-space:nowrap;color:#24142E}
+.start{position:absolute;left:50%;top:1715px;transform:translateX(-50%);font-size:44px;padding:36px 70px;white-space:nowrap}
 .start:active{transform:translateX(-50%) scale(.96)}
 
 /* toppings */

@@ -33,7 +33,7 @@ Note: the provider's "alpha" full screens are fully opaque, apart from a 1 px ed
 - Text (app and screen titles, incl. Sólidos/Líquidos labels): #4A1F6E (12:1 on #FFFCF5), switched from #FAB417 for legibility
 - Topping card fill: #F5F1E8 · card text #4A1F6E · price smaller, regular weight · "Imagen ilustrativa" #8E8167
 - Topping images: no background
-- Primary button (Siguiente/Pagar): fill #FAB417, text #FFFFFF (⚠ 1.81:1 contrast)
+- Primary button (Personaliza start, Siguiente, Pagar): fill #FAB417, text #24142E dark purple (9.6:1)
 - Secondary button (Volver): fill #FFFFFF, text + border #4A1F6E
 
 ## Requests to the provider (not possible with images)
