@@ -24,7 +24,7 @@ Note: the provider's "alpha" full screens are fully opaque, apart from a 1 px ed
 | 4 | Bowl quantity | order_en/fr.jpg | #FFFCF5, "¿Cuántos bowls quieres?" + "Elige 1, 2 o 3" | 1/2/3 bowl images (assets/bowls-1/2/3.png, 1000x1000 transparent; app data for the provider), selected mark, buttons |
 | 5 | Summary | payment_en/fr.jpg | #FFFCF5, text only: "Resumen de tu pedido" + "Revisa que todo esté bien" | "Seleccionado: N bowls" + order text, buttons |
 | 6 | Payment | – | **on hold, no clear path from the provider yet** | – |
-| 7 | Preparing | outing_en.jpg, outing_fr.png + outing_process_1–4.png 485x74 | unchanged (plum) | progress steps (loading state) |
+| 7 | Preparing | outing_en.jpg, outing_fr.png + outing_process_1–4.png 485x74 | #FFFCF5, purple #4A1F6E text, light-beige #F5F1E8 panels; progress bar: purple outline, light-purple #8B2FC9 fill; texts centred | progress steps (loading state); cup = assets/bowls-1.png |
 | 8 | Sold out | sold_out_en.png, sold_out_fr.png | full-bleed image, no text (placeholder: Amazon photo). Back button maybe later | – |
 | – | Common mark (hidden) | label_common_mark.png 308x344 | fully transparent | – |
 
