@@ -16,7 +16,7 @@ Note: the provider's "alpha" full screens are fully opaque, apart from a 1 px ed
 ## Flow
 | # | Screen | Delivered files | Our image | App draws on top |
 |---|---|---|---|---|
-| 1 | Welcome | MP4 1080x1920 H.264, 27 s (separate) = assets/video/attract.mp4 | claymation açaí-berry intro (client file result-2a739822…mp4), no overlay; tap → 2 | – |
+| 1 | Welcome | MP4 1080x1920 H.264, 27 s (separate) = assets/video/attract.mp4 | claymation açaí-berry intro (client file result-2a739822…mp4 = assets/video/intro-source.mp4) with storyboard captions burned in on the purple floor (y≈1415–1660): 0.4–5.6 s "Açaí · desde el corazón de la Amazonia"; 6–11.4 s "Un fruto extraordinario · Directo de la Amazonia a tu bowl"; 11.8–16.4 s "Tú eliges tus toppings · Crea tu bowl como más te guste"; 16.8–21 s "Puro sabor, a tu manera"; 21.4–26.9 s "Tu bowl de açaí en segundos" (no logo, so the button never covers it); white brand symbol (design/img/symbol-white.svg, 144 px) in the top-left corner for the whole video. Tap → 2 | prototype: cream pill "TOCA LA PANTALLA PARA CONTINUAR" + hand icon at y≈1705 over the video (to confirm with the provider whether the app can overlay it; otherwise burn it into the MP4) |
 | 2 | Personaliza | welcome_vanille_en/fr.jpg, welcome_mangues_en/fr.jpg (both identical, single design) | #FFFCF5, purple logo, light-beige (#F5F1E8) product slot, purple text below: "Tu bowl de açaí en segundos" + "Natural, fresco y a tu manera" | product slot: cup only, no text (assets/bowls-1.png, transparent); bottom button (colour + text configurable) |
 | 3 | Toppings | book_en.jpg, book_fr.png | #FFFCF5, purple text: "Personaliza tu açaí" (one line) + "Elige tus toppings" | Sólidos/Líquidos label images, topping cards, total, Volver/Siguiente |
 | 3a | Section titles | book_topping_en 548x60, _fr 594x60 = "Sólidos"; book_sauce_en 211x45, _fr 608x60 = "Líquidos" | #4A1F6E, transparent, fixed height | – |
@@ -46,4 +46,6 @@ Note: the provider's "alpha" full screens are fully opaque, apart from a 1 px ed
 
 ## How to rebuild the assets
 `./scripts/render.sh` renders design/*.html with headless Chrome → export/ (names, sizes and formats from scripts/manifest.txt).
+Video captions: edit design/video/capN.html, render each to build/video/capN.png (headless Chrome, 1080x1920, transparent),
+then `swiftc -O scripts/captions.swift -o build/captions && build/captions assets/video/intro-source.mp4 assets/video/attract.mp4` (timings in the script).
 Add `?zones` to any design/*.html URL to see where the provider's app draws on top.

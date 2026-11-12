@@ -36,6 +36,12 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 
 /* attract: video only, tap anywhere */
 #attractVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tap-cta{position:absolute;left:50%;top:1705px;transform:translateX(-50%);display:flex;align-items:center;gap:30px;
+  background:#FFFCF5;color:#4A1F6E;border-radius:999px;padding:26px 44px 26px 64px;white-space:nowrap;
+  font-weight:800;font-size:40px;line-height:1.08;letter-spacing:.5px;text-align:left;
+  box-shadow:0 14px 36px rgba(36,20,46,.35);animation:ctaPulse 2.4s ease-in-out infinite}
+.tap-cta svg{width:84px;height:84px;flex:none}
+@keyframes ctaPulse{50%{transform:translateX(-50%) scale(1.045)}}
 
 /* Personaliza: product slot (app zone 120..960 × 330..1230) — cup only, light beige */
 .product-slot{position:absolute;left:120px;top:330px;width:840px;height:900px;border-radius:48px;background:#F5F1E8;
